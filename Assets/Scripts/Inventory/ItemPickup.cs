@@ -6,22 +6,22 @@ public class ItemPickup : MonoBehaviour
 {
     [SerializeField] private int itemID;
     [SerializeField] private int amount = 1;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    
+    private SpriteRenderer _spriteRenderer;
     
     private void Start()
     {
-        if (spriteRenderer == null)
+        if (_spriteRenderer == null)
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
         
-        // 아이템 아이콘 설정
         if (ItemDatabase.Instance != null)
         {
             Item item = ItemDatabase.Instance.GetItemByID(itemID);
             if (item != null && item.itemIcon != null)
             {
-                spriteRenderer.sprite = item.itemIcon;
+                _spriteRenderer.sprite = item.itemIcon;
             }
         }
     }
