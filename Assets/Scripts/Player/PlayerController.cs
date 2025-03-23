@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Inventory _inventory;
 
     [SerializeField] private UnitStatus status;
+    [SerializeField] private SliderUI healthBar;
 
     private void Awake()
     {
@@ -28,6 +29,14 @@ public class PlayerController : MonoBehaviour
 
         _inventory = GetComponent<Inventory>();
         _move.Initialize(_rig, status.moveSpeed, status.jumpPower);
+
+        status.Initialize();
+        healthBar.SetTargetStatus(status);
+    }
+
+    private void Start()
+    {
+        status.OnHealthChanged += healthBar.OnHealthChanged;
     }
 
     private void Update()
@@ -39,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            PickUpRandItem();
+            status.TakeDamage(100);
         }
     }
 

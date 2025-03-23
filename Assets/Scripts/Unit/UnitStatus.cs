@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-// MonoBehaviour가 있으면 인스펙터에서 오브젝트에 추가할 수 있다.
 [System.Serializable]
 public class UnitStatus
 {
-    public int maxHp;
-    public int currentHp;
+    public int maxHealth;
+    public int currentHealth;
 
     public int damage;
     public float attackSpeed;
@@ -15,9 +15,48 @@ public class UnitStatus
 
     public float moveSpeed;
     public float jumpPower;
-
-    public void Initialize()
+    
+    public event Action OnHealthChanged;
+    
+    public UnitStatus(int maxHealth, int currentHealth, int damage, float attackSpeed, float attackRange, float moveSpeed, float jumpPower)
     {
-        currentHp = maxHp;
+        this.maxHealth = maxHealth;
+        this.currentHealth = currentHealth;
+        this.damage = damage;
+        this.attackSpeed = attackSpeed;
+        this.attackRange = attackRange;
+        this.moveSpeed = moveSpeed;
+        this.jumpPower = jumpPower;
+    }
+
+    public void Initialize() => currentHealth = maxHealth;
+    
+    public void TakeDamage(int damageAmount)
+    {
+        if (damageAmount <= 0) return;
+        
+        currentHealth -= damageAmount;
+        
+        if (currentHealth < 0)
+            currentHealth = 0;
+            
+        OnHealthChanged?.Invoke();
+    }
+    
+    public void Heal(int healAmount)
+    {
+        if (healAmount <= 0) return;
+        
+        currentHealth += healAmount;
+        
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+            
+        OnHealthChanged?.Invoke();
+    }
+    
+    public float GetHealthRatio()
+    {
+        return (float)currentHealth / maxHealth;
     }
 }
