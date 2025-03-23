@@ -7,8 +7,10 @@ public class ItemSlotUI : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image itemIcon;
     [SerializeField] private Item item;
+    
     private int slotIndex;
     private Inventory inventory;
+    
     public void SetItem(Item newItem)
     {
         item = newItem;
@@ -31,6 +33,7 @@ public class ItemSlotUI : MonoBehaviour, IPointerClickHandler
     {
         slotIndex = index;
     }
+    
     public void SetInventory(Inventory inven)
     {
         inventory = inven;

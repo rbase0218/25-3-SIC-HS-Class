@@ -11,10 +11,13 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         _playerInventory = FindFirstObjectByType<Inventory>();
+        
         if (_playerInventory != null)
             _playerInventory.OnInventoryChanged += UpdateUI;
+        
         InitializeInventoryUI();
         UpdateUI();
+        
         inventoryPanel.SetActive(false);
     }
     private void Update()
@@ -40,6 +43,7 @@ public class InventoryUI : MonoBehaviour
                 slot.SetSlotIndex(i);
                 slot.ClearSlot();
                 slot.SetInventory(_playerInventory);
+                
                 itemSlots.Add(slot);
             }
         }
