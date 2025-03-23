@@ -24,6 +24,7 @@ public class InventoryUI : MonoBehaviour
             ToggleInventory();
         }
     }
+    
     public void ToggleInventory()
     {
         inventoryPanel.SetActive(!inventoryPanel.activeSelf);

@@ -6,13 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider2D))]
 public class PlayerController : MonoBehaviour
 {
-    // 플레이어가 가지고 있는 상태
-    // Attack
-    // Death
-    // Move
-    
-    // 1.  플레이어는 한 번에 하나의 상태만 유지한다.
-
     private Rigidbody2D _rig;
     private CapsuleCollider2D _coll;
 
@@ -43,5 +36,38 @@ public class PlayerController : MonoBehaviour
         bool dPressed = Input.GetKey(KeyCode.D);
         
         _move.HandleMovement(aPressed, dPressed);
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            PickUpRandItem();
+        }
+    }
+
+    public void PickUpItem(int itemID, int amount = 1)
+    {
+        if (ItemDatabase.Instance == null) return;
+        
+        Item item = ItemDatabase.Instance.GetItemByID(itemID);
+        if (item != null)
+        {
+            item.currentStackSize = amount;
+            bool collected = _inventory.AddItem(item);
+            
+            if (collected)
+            {
+                Debug.Log($"Collected: {item.itemName} x{amount}");
+            }
+            else
+            {
+                Debug.Log($"Couldn't collect {item.itemName}. Inventory full!");
+            }
+        }
+    }
+
+    private void PickUpRandItem()
+    {
+        if (ItemDatabase.Instance == null) return;
+        int randCode = 1001;
+        PickUpItem(randCode);
     }
 }
