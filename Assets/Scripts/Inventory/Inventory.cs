@@ -4,12 +4,9 @@ using UnityEngine;
 using System;
 public class Inventory : MonoBehaviour
 {
-    // 인벤토리가 보유할 수 있는 아이템 개수
     [SerializeField] private int inventorySize = 20;
-    // 인벤토리 슬롯
     private Item[] itemSlots;
     
-    // 인벤토리에 있는 아이템이 변경될 때 마다 발동합니다.
     public event Action OnInventoryChanged;
     
     private void Awake()

@@ -4,12 +4,9 @@ using UnityEngine;
 [System.Serializable]
 public class Item
 {
-    // Item의 이름
     public string itemName;
     
-    // Item이 가지고 있는 고유한 값. ( 우리의 주민등록번호 )
     public int itemID;
-    // Item이 어떤 역할을 하는지 알려줄 설명
     public string itemDescription;
     
     // Item의 아이콘

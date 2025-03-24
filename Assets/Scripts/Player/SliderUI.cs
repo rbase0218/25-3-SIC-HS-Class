@@ -15,9 +15,7 @@ public class SliderUI : MonoBehaviour
     private void Start()
     {
         if (targetStatus != null)
-        {
             UpdateHealthBar();
-        }
     }
     
     private void Update()
