@@ -73,6 +73,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Heal(int amount)
+    {
+        status.Heal(amount);
+    }
+    
+    public void HealFull()
+    {
+        Heal(status.maxHealth);
+    }
+
     private void PickUpRandItem()
     {
         if (ItemDatabase.Instance == null) return;
