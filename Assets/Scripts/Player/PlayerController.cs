@@ -50,6 +50,11 @@ public class PlayerController : MonoBehaviour
         {
             status.TakeDamage(100);
         }
+        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            PickUpItem(1001);
+        }
     }
 
     public void PickUpItem(int itemID, int amount = 1)

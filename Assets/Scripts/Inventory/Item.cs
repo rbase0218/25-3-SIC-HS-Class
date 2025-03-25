@@ -23,6 +23,8 @@ public class Item
     
     public ItemType itemType;
     
+    public Item() {}
+    
     public Item(string name, int id, string description, ItemType type, int maxStack = 1)
     {
         itemName = name;

@@ -7,6 +7,8 @@ public class ItemDatabase : MonoBehaviour
     public static ItemDatabase Instance { get; private set; }
     
     [SerializeField] private List<Item> items = new List<Item>();
+    [SerializeField] private List<HealPotion> healPotions = new List<HealPotion>();
+    
     private Dictionary<int, Item> itemDictionary = new Dictionary<int, Item>();
 
     private void Awake()
@@ -27,15 +29,21 @@ public class ItemDatabase : MonoBehaviour
     private void InitializeItems()
     {
         foreach (Item item in items)
-        {
             itemDictionary.TryAdd(item.itemID, item);
-        }
+            
+        foreach (HealPotion potion in healPotions)
+            itemDictionary.TryAdd(potion.itemID, potion);
     }
 
     public Item GetItemByID(int id)
     {
-        if (itemDictionary.TryGetValue(id, out var item))
-            return new Item(item);
+        if (itemDictionary.TryGetValue(id, out Item item))
+        {
+            if (item is HealPotion healPotion)
+                return new HealPotion(healPotion);
+            else
+                return new Item(item);
+        }
         return null;
     }
 }

@@ -151,14 +151,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6135b598dc0b1e14c839b947222a8e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - itemName: "\uCCB4\uB825 \uD3EC\uC158"
+  items: []
+  healPotions:
+  - itemName: "\uD790 \uD3EC\uC158"
     itemID: 1001
-    itemDescription: "\uBCF5\uC6A9\uD558\uBA74 \uCCB4\uB825\uC744 \uC62C\uB824\uC90D\uB2C8\uB2E4."
-    itemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-    maxStackSize: 999
+    itemDescription: 1234
+    itemIcon: {fileID: 21300000, guid: 242da087e5159894fb69b76b27eca40f, type: 3}
+    maxStackSize: 54
     currentStackSize: 1
     itemType: 0
+    healAmount: 25
 --- !u!4 &96624866
 Transform:
   m_ObjectHideFlags: 0
@@ -193,7 +195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &134023162
 MonoBehaviour:
   m_ObjectHideFlags: 0

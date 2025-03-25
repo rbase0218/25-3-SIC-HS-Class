@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
 
     public bool AddItem(Item item)
     {
+        // 스택 가능한 아이템 처리
         for (int i = 0; i < inventorySize; i++)
         {
             if (itemSlots[i] != null &&
@@ -27,11 +28,16 @@ public class Inventory : MonoBehaviour
                 return true;
             }
         }
+        
         for (int i = 0; i < inventorySize; i++)
         {
             if (itemSlots[i] == null)
             {
-                itemSlots[i] = new Item(item);
+                if (item is HealPotion healPotion)
+                    itemSlots[i] = new HealPotion(healPotion);
+                else
+                    itemSlots[i] = new Item(item);
+                    
                 OnInventoryChanged?.Invoke();
                 return true;
             }
@@ -53,12 +59,14 @@ public class Inventory : MonoBehaviour
         if (slotIndex >= 0 && slotIndex < inventorySize && itemSlots[slotIndex] != null)
         {
             itemSlots[slotIndex].Use();
+            
             if (itemSlots[slotIndex].itemType == Item.ItemType.Consumable)
             {
                 itemSlots[slotIndex].currentStackSize--;
                 if (itemSlots[slotIndex].currentStackSize <= 0)
                     RemoveItem(slotIndex);
             }
+            
             OnInventoryChanged?.Invoke();
         }
     }
