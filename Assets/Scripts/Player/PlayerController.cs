@@ -88,10 +88,9 @@ public class PlayerController : MonoBehaviour
         Heal(status.maxHealth);
     }
 
-    private void PickUpRandItem()
+    public UnitStatus GetStatus()
     {
-        if (ItemDatabase.Instance == null) return;
-        int randCode = 1001;
-        PickUpItem(randCode);
+        return status;
     }
+
 }
