@@ -16,11 +16,17 @@ public class MonsterMove : MonoBehaviour
     private Vector2 _movementDirection;
     private float _randomMoveDistance = 3f;
     
-    public void Initialized(Rigidbody2D rig, float moveSpeed, float waitTime)
+    private Transform _playerTransform;
+    private float _attackRange = 0f;
+    private bool _isInAttackRange = false;
+    
+    public void Initialized(Rigidbody2D rig, Transform playerTransform, float moveSpeed, float waitTime, float attackRange)
     {
         _rig = rig;
         _moveSpeed = moveSpeed;
         _waitTime = waitTime;
+        _attackRange = attackRange;
+        _playerTransform = playerTransform;
         
         SetNewRandomTarget();
     }
@@ -29,7 +35,11 @@ public class MonsterMove : MonoBehaviour
     {
         if (_isChasingPlayer)
         {
-            MoveToTarget();
+            CheckAttackRange();
+            
+            if (!_isInAttackRange)
+                MoveToTarget();
+                
             return;
         }
         
@@ -52,9 +62,26 @@ public class MonsterMove : MonoBehaviour
         }
     }
     
+    private void CheckAttackRange()
+    {
+        if (_playerTransform == null)
+            return;
+            
+        float distanceToPlayer = Vector2.Distance(transform.position, _playerTransform.position);
+        _isInAttackRange = distanceToPlayer <= _attackRange;
+        
+        if (!_isInAttackRange)
+        {
+            _targetPosition = _playerTransform.position;
+            _movementDirection = (_targetPosition - (Vector2)transform.position).normalized;
+            UpdateFacingDirection();
+        }
+    }
+    
     public void RandomMovement()
     {
         _isChasingPlayer = false;
+        _isInAttackRange = false;
     }
     
     public void ChasePlayer(Vector2 playerPosition)

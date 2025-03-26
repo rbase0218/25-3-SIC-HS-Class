@@ -30,7 +30,8 @@ public class MonsterController : MonoBehaviour
     private void Start()
     {
         _playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
-        _move.Initialized(_rig, status.moveSpeed, waitTime);
+        _move.Initialized(_rig, _playerTransform, status.moveSpeed, waitTime, status.attackRange);
+        _attack.Initialize(status, _playerTransform);
     }
     
     private void Update()
