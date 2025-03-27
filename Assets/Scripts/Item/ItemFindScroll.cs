@@ -19,10 +19,5 @@ public class ItemFindScroll : Item
     public override void Use()
     {
         base.Use();
-
-        Debug.Log("아이템 찾기 사용: " + itemName);
-
-        var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        player.PlayFinder();
     }
 }

@@ -96,10 +96,4 @@ public class PlayerController : MonoBehaviour
     {
         return status;
     }
-
-    public void PlayFinder()
-    {
-        finder.SetTarget(GameManager.Instance.GetTreasure());
-    }
-    
 }

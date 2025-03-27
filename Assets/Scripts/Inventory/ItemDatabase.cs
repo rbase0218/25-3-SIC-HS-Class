@@ -8,7 +8,6 @@ public class ItemDatabase : MonoBehaviour
     
     [SerializeField] private List<Item> items = new List<Item>();
     [SerializeField] private List<HealPotion> healPotions = new List<HealPotion>();
-    [SerializeField] private ItemFindScroll itemFindScroll;
     
     private Dictionary<int, Item> itemDictionary = new Dictionary<int, Item>();
 
@@ -34,8 +33,6 @@ public class ItemDatabase : MonoBehaviour
             
         foreach (HealPotion potion in healPotions)
             itemDictionary.TryAdd(potion.itemID, potion);
-
-        itemDictionary.TryAdd(itemFindScroll.itemID, itemFindScroll);
     }
 
     public Item GetItemByID(int id)
@@ -46,8 +43,6 @@ public class ItemDatabase : MonoBehaviour
             {
                 case HealPotion healPotion:
                     return new HealPotion(healPotion);
-                case ItemFindScroll findScroll:
-                    return new ItemFindScroll(findScroll);
                 default:
                     return new Item(item);
             }
