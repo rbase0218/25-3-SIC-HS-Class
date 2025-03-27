@@ -43,8 +43,9 @@ public class PlayerController : MonoBehaviour
     {
         bool aPressed = Input.GetKey(KeyCode.A);
         bool dPressed = Input.GetKey(KeyCode.D);
+        bool spacePressed = Input.GetKeyDown(KeyCode.Space);
         
-        _move.HandleMovement(aPressed, dPressed);
+        _move.HandleMovement(aPressed, dPressed, spacePressed);
 
         if (Input.GetKeyDown(KeyCode.Q))
         {

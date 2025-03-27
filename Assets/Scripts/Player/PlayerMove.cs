@@ -1,41 +1,76 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PlayerMove : MonoBehaviour
 {
-    private Vector2 _moveDir = Vector2.zero;
-    
-    private Rigidbody2D _rig;
-    
-    // Player의 Status들이 필요하다.
+    private Vector2 _moveDirection = Vector2.zero;
+    private Rigidbody2D _rigidbody;
     private float _moveSpeed;
     private float _jumpPower;
-
-    public void Initialize(Rigidbody2D rig, float moveSpeed, float jumpPower)
+    
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private float groundCheckDistance = 0.1f;
+    [SerializeField] private LayerMask groundLayer;
+    
+    private void Awake()
     {
-        _rig = rig;
+        groundLayer = LayerMask.GetMask("Ground");
+    }
+    
+    private void FixedUpdate()
+    {
+        CheckGround();
+        Move();
+    }
+    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Vector3 origin = transform.position;
+        Vector3 target = origin + Vector3.down * groundCheckDistance;
+        Gizmos.DrawLine(origin, target);
+    }
+    
+    public void Initialize(Rigidbody2D rigidbody, float moveSpeed, float jumpPower)
+    {
+        _rigidbody = rigidbody;
         _moveSpeed = moveSpeed;
         _jumpPower = jumpPower;
     }
-
-    private void FixedUpdate()
+    
+    public void HandleMovement(bool aPressed, bool dPressed, bool jumpPressed)
     {
-        Movement();
+        _moveDirection = Vector2.zero;
+        
+        if (aPressed) _moveDirection.x = -1f;
+        if (dPressed) _moveDirection.x = 1f;
+        if(jumpPressed) Jump();
     }
-
-    // HandleMovement : 키의 입력을 받아서, 플레이어가 어디로 이동해야하는지 값을 정하는 함수.
-    public void HandleMovement(bool aPressed, bool dPressed)
+    
+    public void Jump()
     {
-        _moveDir = Vector2.zero;
-
-        if (aPressed) _moveDir.x = -1f;
-        else if (dPressed) _moveDir.x = 1f;
+        Debug.Log("Jump! AA");
+        if (isGrounded)
+        {
+            Debug.Log("Jump!");
+            _rigidbody.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
+        }
     }
-
-    private void Movement()
+    
+    private void Move()
     {
-        _rig.velocity = new Vector2(_moveDir.x * _moveSpeed, _rig.velocity.y);
+        _rigidbody.velocity = new Vector2(_moveDirection.x * _moveSpeed, _rigidbody.velocity.y);
+    }
+    
+    private void CheckGround()
+    {
+        Vector2 origin = transform.position;
+        Vector2 direction = Vector2.down;
+        
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, groundCheckDistance, groundLayer);
+        isGrounded = hit.collider != null;
+        
+        Debug.DrawRay(origin, direction * groundCheckDistance, isGrounded ? Color.green : Color.red);
     }
 }
