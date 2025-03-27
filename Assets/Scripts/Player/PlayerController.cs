@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private PlayerAttack _attack;
     private PlayerMove _move;
     private PlayerDeath _death;
+
+    [SerializeField] private ItemFinder finder;
 
     private Inventory _inventory;
 
@@ -54,7 +57,7 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.R))
         {
-            PickUpItem(1001);
+            PickUpItem(1002);
         }
     }
 
@@ -94,4 +97,9 @@ public class PlayerController : MonoBehaviour
         return status;
     }
 
+    public void PlayFinder()
+    {
+        finder.SetTarget(GameManager.Instance.GetTreasure());
+    }
+    
 }

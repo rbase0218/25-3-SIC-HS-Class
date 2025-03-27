@@ -33,10 +33,18 @@ public class Inventory : MonoBehaviour
         {
             if (itemSlots[i] == null)
             {
-                if (item is HealPotion healPotion)
-                    itemSlots[i] = new HealPotion(healPotion);
-                else
-                    itemSlots[i] = new Item(item);
+                switch (item)
+                {
+                    case HealPotion healPotion:
+                        itemSlots[i] = new HealPotion(healPotion);
+                        break;
+                    case ItemFindScroll itemFindScroll:
+                        itemSlots[i] = new ItemFindScroll(itemFindScroll);
+                        break;
+                    default:
+                        itemSlots[i] = new Item(item);
+                        break;
+                }
                     
                 OnInventoryChanged?.Invoke();
                 return true;
