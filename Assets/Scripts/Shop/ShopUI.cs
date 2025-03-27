@@ -19,8 +19,9 @@ public class ShopUI : MonoBehaviour
     {
         _shop = GetComponent<Shop>();
         _playerInventory = FindFirstObjectByType<Inventory>();
-        if(_shop.itemCode.Count != 0)
-            InitializeShopUI();
+
+        _shop.OnShopItemChanged += UpdateUI;
+        InitializeShopUI();
         
         ToggleShop();
     }
@@ -33,9 +34,24 @@ public class ShopUI : MonoBehaviour
         }
     }
 
+    private void UpdateUI()
+    {
+        InitializeShopUI();
+    }
+
+    private void ClearSlot()
+    {
+        foreach (Transform child in slotParent)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
     private void InitializeShopUI()
     {
-        var size = Mathf.Min(Mathf.Max(_shop.itemCode.Count, 0), 2);
+        ClearSlot();
+        
+        var size = Mathf.Min(Mathf.Max(_shop.itemCode.Count, 0), 3);
         
         for (int i = 0; i < size; i++)
         {
