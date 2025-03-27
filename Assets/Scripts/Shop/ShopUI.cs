@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShopUI : MonoBehaviour
 {
     [SerializeField] private GameObject shopPanel;
-    private List<ShopSlotUI> _slotUIs;
+    private Inventory _playerInventory;
 
     [SerializeField] private Transform slotParent;
     [SerializeField] private GameObject slotPrefab;
@@ -16,6 +16,7 @@ public class ShopUI : MonoBehaviour
     private void Start()
     {
         _shop = GetComponent<Shop>();
+        _playerInventory = FindFirstObjectByType<Inventory>();
         InitializeShopUI();
     }
 
@@ -40,7 +41,7 @@ public class ShopUI : MonoBehaviour
                 var item = ItemDatabase.Instance.GetItemByID(itemCode);
                 
                 slot.ClearSlot();
-                slot.SetItem(item, _shop.itemPrice[i]);
+                slot.SetItem(item, _shop.itemPrice[i], _playerInventory);
             }
         }
     }

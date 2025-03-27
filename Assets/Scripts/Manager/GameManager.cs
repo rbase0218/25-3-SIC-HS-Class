@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    [Header("치트 목록")]
+    public bool isFreeShopping = false;
+
     public int gold = 0;
     
     private void Awake()
@@ -20,5 +23,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+    }
+    
+    public void ToggleFreeShopping()
+    {
+        isFreeShopping = !isFreeShopping;
     }
 }

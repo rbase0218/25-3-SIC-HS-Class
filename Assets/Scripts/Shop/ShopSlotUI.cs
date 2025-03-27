@@ -11,15 +11,22 @@ public class ShopSlotUI : MonoBehaviour
     [SerializeField] private TMP_Text itemGold;
     [SerializeField] private Button buyButton;
 
+    private Inventory inv;
+    private Item itemData;
+
     private void Start()
     {
         buyButton.onClick.AddListener(OnClickBuyButton);
     }
 
-    public void SetItem(Item item, int price)
+    public void SetItem(Item item, int price, Inventory inventory)
     {
-        itemIcon.sprite = item.itemIcon;
-        itemText.text = item.itemName;
+        inv = inventory;
+        
+        itemData = item;
+        itemIcon.sprite = itemData.itemIcon;
+        itemText.text = itemData.itemName;
+        
         itemGold.text = price.ToString();
     }
 
@@ -32,7 +39,12 @@ public class ShopSlotUI : MonoBehaviour
 
     private void OnClickBuyButton()
     {
-        
+        var itemPrice = (GameManager.Instance.isFreeShopping) ? 0 : int.Parse(itemGold.text);
+        if(GameManager.Instance.gold >= itemPrice)
+        {
+            GameManager.Instance.gold -= itemPrice;
+            inv.AddItem(itemData);
+        }
     }
     
 }
