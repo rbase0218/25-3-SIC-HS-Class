@@ -23,6 +23,13 @@ public class ShopSlotUI : MonoBehaviour
         itemGold.text = price.ToString();
     }
 
+    public void ClearSlot()
+    {
+        itemIcon.sprite = null;
+        itemText.text = "";
+        itemGold.text = "";
+    }
+
     private void OnClickBuyButton()
     {
         
