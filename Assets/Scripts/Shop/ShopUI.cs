@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class ShopUI : MonoBehaviour
 
     [SerializeField] private Transform slotParent;
     [SerializeField] private GameObject slotPrefab;
+    [SerializeField] private TMP_Text moneyText;
     
     private Shop _shop;
 
@@ -17,7 +19,10 @@ public class ShopUI : MonoBehaviour
     {
         _shop = GetComponent<Shop>();
         _playerInventory = FindFirstObjectByType<Inventory>();
-        InitializeShopUI();
+        if(_shop.itemCode.Count != 0)
+            InitializeShopUI();
+        
+        ToggleShop();
     }
 
     public void Update()
@@ -30,7 +35,9 @@ public class ShopUI : MonoBehaviour
 
     private void InitializeShopUI()
     {
-        for (int i = 0; i < 3; i++)
+        var size = Mathf.Min(Mathf.Max(_shop.itemCode.Count, 0), 2);
+        
+        for (int i = 0; i < size; i++)
         {
             var slotObj = Instantiate(slotPrefab, slotParent);
             var slot = slotObj.GetComponent<ShopSlotUI>();
@@ -44,6 +51,8 @@ public class ShopUI : MonoBehaviour
                 slot.SetItem(item, _shop.itemPrice[i], _playerInventory);
             }
         }
+
+        moneyText.text = GameManager.Instance.gold.ToString();
     }
     
     private void ToggleShop()

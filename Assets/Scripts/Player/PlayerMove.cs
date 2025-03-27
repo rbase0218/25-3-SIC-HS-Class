@@ -50,10 +50,8 @@ public class PlayerMove : MonoBehaviour
     
     public void Jump()
     {
-        Debug.Log("Jump! AA");
         if (isGrounded)
         {
-            Debug.Log("Jump!");
             _rigidbody.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
         }
     }
