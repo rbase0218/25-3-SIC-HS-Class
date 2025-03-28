@@ -98,12 +98,15 @@ public class MonsterMove : MonoBehaviour
         _targetPosition = (Vector2)transform.position + new Vector2(randomX, 0f);
         _movementDirection = (_targetPosition - (Vector2)transform.position).normalized;
         _isMoving = true;
+        
+        Debug.Log("randomX: " + randomX);
         UpdateFacingDirection();
     }
     
     private void MoveToTarget()
     {
         Vector2 movement = _movementDirection * _moveSpeed * Time.deltaTime;
+        movement.y = 0f;
         _rig.position += movement;
     }
     
