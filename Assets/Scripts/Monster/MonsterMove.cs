@@ -99,7 +99,6 @@ public class MonsterMove : MonoBehaviour
         _movementDirection = (_targetPosition - (Vector2)transform.position).normalized;
         _isMoving = true;
         
-        Debug.Log("randomX: " + randomX);
         UpdateFacingDirection();
     }
     
