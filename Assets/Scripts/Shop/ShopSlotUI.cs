@@ -39,7 +39,10 @@ public class ShopSlotUI : MonoBehaviour
 
     private void OnClickBuyButton()
     {
-        var itemPrice = int.Parse(itemGold.text);
+        int itemPrice = (GameManager.Instance.onShopFree) ? 0 : int.Parse(itemGold.text);
+        
+        // 플레이어가 보유한 골드 : GameManager.Instance.gold
+        // ItemSlot이 가지고 있는 아이템의 가격 : itemPrice
         if(GameManager.Instance.gold >= itemPrice)
         {
             GameManager.Instance.gold -= itemPrice;

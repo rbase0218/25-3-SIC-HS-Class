@@ -32,6 +32,8 @@ public class ShopUI : MonoBehaviour
         {
             ToggleShop();
         }
+        
+        moneyText.text = GameManager.Instance.gold.ToString();
     }
 
     private void UpdateUI()

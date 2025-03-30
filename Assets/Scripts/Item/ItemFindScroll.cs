@@ -19,5 +19,9 @@ public class ItemFindScroll : Item
     public override void Use()
     {
         base.Use();
+        
+        // 플레이어 오브젝트를 불러오고 ItemFinder를 실행하면 된다.
+        var pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        pc.StartItemFind();
     }
 }

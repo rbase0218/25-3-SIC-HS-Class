@@ -38,6 +38,9 @@ public class Inventory : MonoBehaviour
                     case HealPotion healPotion:
                         itemSlots[i] = new HealPotion(healPotion);
                         break;
+                    case ItemFindScroll findScroll:;
+                        itemSlots[i] = new ItemFindScroll(findScroll);
+                        break;
                     default:
                         itemSlots[i] = new Item(item);
                         break;

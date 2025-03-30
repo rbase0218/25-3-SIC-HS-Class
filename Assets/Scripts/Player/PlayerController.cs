@@ -96,4 +96,10 @@ public class PlayerController : MonoBehaviour
     {
         return status;
     }
+
+    public void StartItemFind()
+    {
+        var targetPos = GameManager.Instance.GetRandTreasure();
+        finder.SetTarget(targetPos);
+    }
 }
